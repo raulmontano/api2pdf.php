@@ -277,6 +277,27 @@ class Api2Pdf implements Api2PdfInterface
     }
 
     /**
+     * @param $url
+     * @param $start
+     * @param $end
+     * @throws Api2PdfException
+     * @return Api2PdfResult
+     */
+    public function pdfsharpExtractPages($url, $start = 0, $end = 1, $inline = true, $filename = null)
+    {
+        $payload = array_merge(
+            $this->buildPayloadBase($inline, $filename),
+            [
+              'url' => $url,
+              'start' => $start,
+              'end' => $end
+          ]
+      );
+
+        return $this->makeRequest('/pdfsharp/extract-pages', $payload);
+    }
+
+    /**
      * @param string $responseId
      *
      * @return ApiResult
